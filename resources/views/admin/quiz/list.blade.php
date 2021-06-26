@@ -21,6 +21,7 @@
                     <td>{{$quiz->status}}</td>
                     <td>{{$quiz->finished_at}}</td>
                     <td>
+                        <a href="{{route('questions.index', $quiz->id)}}" class="btn btn-warning"><i class="fa fa-question"></i></a>
                         <a href="{{route('quizzes.edit', $quiz->id)}}" class="btn btn-primary"><i class="fa fa-edit"></i></a>
                         <a href="{{route('quizzes.destroy', $quiz->id)}}" class="btn btn-danger"><i class="fa fa-trash"></i></a>
                     </td>
