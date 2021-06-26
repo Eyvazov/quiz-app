@@ -108,7 +108,14 @@ return [
   'attributes' => [
       'title' => 'Başlıq',
       'description' => 'Açıqlama',
-      'finished_at' => 'Bitiş Tarixi'
+      'finished_at' => 'Bitiş Tarixi',
+      'question' => 'Sual',
+      'image' => 'Şəkil',
+      'answer1' => '1-ci cavab',
+      'answer2' => '2-ci cavab',
+      'answer3' => '3-cü cavab',
+      'answer4' => '4-cü cavab',
+      'correct_answer' => 'Doğru cavab'
   ],
 
 ];
