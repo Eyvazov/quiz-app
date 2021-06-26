@@ -105,6 +105,10 @@ return [
   |
   */
 
-  'attributes' => [],
+  'attributes' => [
+      'title' => 'Başlıq',
+      'description' => 'Açıqlama',
+      'finished_at' => 'Bitiş Tarixi'
+  ],
 
 ];
