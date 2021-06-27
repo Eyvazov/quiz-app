@@ -2,10 +2,35 @@
     <x-slot name="header">Testlər</x-slot>
     <div class="card">
         <div class="card-body">
-            <h5 class="card-title">
+            <h5 class="card-title" style="float: right">
                 <a href="{{route('quizzes.create')}}" class="btn btn-sm btn-primary"><i class="fa fa-plus"></i> Test
                     Yarat</a>
             </h5>
+            <form method="GET" action="">
+                <div class="row">
+                    <div class="col-md-2">
+                        <input type="text" name="title" value="{{request()->get('title')}}"
+                               class="form-control form-control-sm" placeholder="Axtar...">
+                    </div>
+                    <div class="col-md-2">
+                        <select name="status" onchange="this.form.submit()" class="form-control form-control-sm">
+                            <option value="">Status seç</option>
+                            <option @if(request()->get('status') == 'publish') selected @endif value="publish">Aktiv
+                            </option>
+                            <option @if(request()->get('status') == 'passive') selected @endif value="passive">Passiv
+                            </option>
+                            <option @if(request()->get('status') == 'draft') selected @endif value="draft">Qaralama
+                            </option>
+                        </select>
+                    </div>
+                    @if(request()->get('title') || request()->get('status'))
+                        <div class="col-md-2">
+                            <a href="{{route('quizzes.index')}}" class="btn btn-sm btn-primary"><i
+                                    class="fa fa-sync"></i> Yenilə</a>
+                        </div>
+                    @endif
+                </div>
+            </form>
             <table class="table">
                 <thead>
                 <tr>
@@ -36,7 +61,9 @@
                             </span>
                             @endif
                         </td>
-                        <td><span title="{{$quiz->finished_at}}">{{$quiz->finished_at ? $quiz->finished_at->diffForHumans() : '-'}}</span></td>
+                        <td><span
+                                title="{{$quiz->finished_at}}">{{$quiz->finished_at ? $quiz->finished_at->diffForHumans() : '-'}}</span>
+                        </td>
                         <td>
                             <a href="{{route('questions.index', $quiz->id)}}" class="btn btn-warning"><i
                                     class="fa fa-question"></i></a>
@@ -49,7 +76,7 @@
                 @endforeach
                 </tbody>
             </table>
-            {{$quizzes->links()}}
+            {{$quizzes->withQueryString()->links()}}
         </div>
     </div>
 </x-app-layout>
