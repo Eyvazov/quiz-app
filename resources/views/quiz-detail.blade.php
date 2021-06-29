@@ -29,9 +29,11 @@
                 </div>
                 <div class="col-md-8">
                     {{$quiz->description}}
-                    <div class="d-grid gap-2">
+                    <a href="{{route('quiz.join', $quiz->slug)}}">
+                    <div class="d-grid gap-2 mt-3">
                         <button class="btn btn-primary btn-sm">Test-ə Qatıl</button>
                     </div>
+                    </a>
                 </div>
             </div>
             </p>
