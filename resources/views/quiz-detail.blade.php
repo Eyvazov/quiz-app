@@ -45,19 +45,39 @@
                             </li>
                         @endif
                     </ul>
+
+                    @if(count($quiz->topTen) > 0)
+                        <div class="card mt-3">
+                            <div class="card-body">
+                                <h5 class="card-title">İlk 10</h5>
+                                <ul class="list-group">
+                                    @foreach($quiz->topTen as $result)
+                                        <li class="list-group-item d-flex align-items-center">
+                                            <strong class="h5 mr-5">{{$loop->iteration}}</strong>
+                                            <img src="{{$result->user->profile_photo_url}}"
+                                                 class="rounded-full w-8 mr-5" alt="">
+                                            {{$result->user->name}}
+                                            <span
+                                                class="badge bg-dark rounded-pill position-absolute right-3">{{$result->point}}</span>
+                                        </li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        </div>
+                    @endif
                 </div>
                 <div class="col-md-8">
                     {{$quiz->description}}
                     @if($quiz->myResult)
                         <a href="{{route('quiz.join', $quiz->slug)}}">
                             <div class="d-grid gap-2 mt-3">
-                                <button class="btn btn-secondary btn-sm">Test-ə Bax</button>
+                                <button class="btn btn-secondary">Test-ə Bax</button>
                             </div>
                         </a>
                     @else
                         <a href="{{route('quiz.join', $quiz->slug)}}">
                             <div class="d-grid gap-2 mt-3">
-                                <button class="btn btn-primary btn-sm">Test-ə Qatıl</button>
+                                <button class="btn btn-primary">Test-ə Qatıl</button>
                             </div>
                         </a>
                     @endif
