@@ -15,8 +15,9 @@ class MainController extends Controller
         return view('dashboard', compact('quizzes'));
     }
 
+
     public function quizDetail($slug){
-        $quiz = Quiz::whereSlug($slug)->withCount('questions')->first() ?? abort(404, 'Test tapılmadı!');
+        $quiz = Quiz::whereSlug($slug)->with('myResult','results')->withCount('questions')->first() ?? abort(404, 'Test tapılmadı!');
         return view('quiz-detail', compact('quiz'));
     }
     public function quiz($slug){
@@ -26,8 +27,12 @@ class MainController extends Controller
 
     public function result(Request $request, $slug){
         $quiz = Quiz::with('questions')->whereSlug($slug)->first() ?? abort(404, 'Test Tapılmadı');
-
         $correct = 0;
+
+        if ($quiz->myResult){
+            abort(404, 'Bu Testdə Əvvəlcədən İştirak Etmisiniz.');
+        }
+
         foreach ($quiz->questions as  $question){
             Answer::create([
                 'user_id' => auth()->user()->id,

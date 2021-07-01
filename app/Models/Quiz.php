@@ -16,11 +16,36 @@ class Quiz extends Model
 
     protected $dates = ['finished_at'];
 
-    public function getFinishedAtAttribute($date){
+    protected $appends = ['details'];
+
+    public function getDetailsAttribute()
+    {
+        if ($this->results()->count() > 0){
+            return [
+                'average' => round($this->results()->avg('point')),
+                'join_count' => $this->results()->count()
+            ];
+        }
+        return null;
+    }
+
+    public function results()
+    {
+        return $this->hasMany('App\Models\Result');
+    }
+
+    public function myResult()
+    {
+        return $this->hasOne('App\Models\Result')->where('user_id', auth()->user()->id);
+    }
+
+    public function getFinishedAtAttribute($date)
+    {
         return $date ? Carbon::parse($date) : null;
     }
 
-    public function questions(){
+    public function questions()
+    {
         return $this->hasMany('App\Models\Question');
     }
 
