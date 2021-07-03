@@ -44,6 +44,12 @@
                                 <span class="badge bg-dark rounded-pill">{{$quiz->details['average']}}</span>
                             </li>
                         @endif
+                        @if($quiz->my_rank)
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                Mənim Sıram
+                                <span class="badge bg-primary rounded-pill">{{$quiz->my_rank}}</span>
+                            </li>
+                        @endif
                     </ul>
 
                     @if(count($quiz->topTen) > 0)
@@ -56,7 +62,7 @@
                                             <strong class="h5 mr-5">{{$loop->iteration}}</strong>
                                             <img src="{{$result->user->profile_photo_url}}"
                                                  class="rounded-full w-8 mr-5" alt="">
-                                            {{$result->user->name}}
+                                            <span class="@if(auth()->user()->id == $result->user_id) text-primary text-xl @endif">{{$result->user->name}}</span>
                                             <span
                                                 class="badge bg-dark rounded-pill position-absolute right-3">{{$result->point}}</span>
                                         </li>
