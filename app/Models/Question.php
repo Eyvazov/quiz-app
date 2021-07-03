@@ -17,4 +17,8 @@ class Question extends Model
         'correct_answer',
         'image'
         ];
+
+    public function myAnswer(){
+        return $this->hasOne('App\Models\Answer')->where('user_id', auth()->user()->id);
+    }
 }
