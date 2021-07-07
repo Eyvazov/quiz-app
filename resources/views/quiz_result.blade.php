@@ -3,10 +3,11 @@
 
     <div class="card">
         <div class="card-body">
+            <p class="h4">Sizin Xalınız: <strong>{{$quiz->myResult->point}}</strong></p>
             <div class="alert alert-primary">
-                <i class="fa fa-check text-success"></i> Doğru Cavab <br>
-                <i class="fa fa-times text-danger"></i> Səhv Cavab <br>
-                <i class="fa fa-square text-danger"></i> Seçdiyin Cavab
+                <strong><i class="fa fa-check text-success"></i> Doğru Cavab</strong> <br>
+               <strong><i class="fa fa-times text-danger"></i> Səhv Cavab</strong> <br>
+                <strong><i class="fa fa-square text-danger"></i> Seçilmiş Cavab</strong>
             </div>
             @foreach($quiz->questions as $question)
                 @if($question->correct_answer == $question->myAnswer->answer)
@@ -19,6 +20,8 @@
                     <img src="{{asset($question->image)}}" width="500" class="img-thumbnail"
                          alt="{{$question->question}}">
                 @endif
+                    <br />
+                    <small>Bu suala <strong>{{$question->true_percent}}%</strong> düzgün cavab verildi</small>
                 <div class="form-check">
                     @if('answer1' == $question->correct_answer)
                         <i class="fa fa-check text-success" title="Doğru Cavab"></i>

@@ -22,7 +22,7 @@ class MainController extends Controller
         return view('quiz-detail', compact('quiz'));
     }
     public function quiz($slug){
-        $quiz = Quiz::whereSlug($slug)->with('questions.myAnswer')->first() ?? abort(404, 'Test Tapılmadı!');
+        $quiz = Quiz::whereSlug($slug)->with('questions.myAnswer', 'myResult')->first() ?? abort(404, 'Test Tapılmadı!');
         if ($quiz->myResult){
             return view('quiz_result', compact('quiz'));
         }
