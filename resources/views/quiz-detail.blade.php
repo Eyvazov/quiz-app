@@ -80,7 +80,7 @@
                                 <button class="btn btn-secondary">Test-ə Bax</button>
                             </div>
                         </a>
-                    @else
+                    @elseif($quiz->finished_at > now())
                         <a href="{{route('quiz.join', $quiz->slug)}}">
                             <div class="d-grid gap-2 mt-3">
                                 <button class="btn btn-primary">Test-ə Qatıl</button>
