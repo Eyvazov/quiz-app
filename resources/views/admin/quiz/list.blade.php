@@ -47,24 +47,31 @@
                         <td>{{$quiz->title}}</td>
                         <td>{{$quiz->questions_count}}</td>
                         <td>
-                            @if($quiz->status == 'publish')
-                                <span class="btn btn-sm btn-success">
-                                Aktiv
-                            </span>
-                            @elseif($quiz->status == 'passive')
-                                <span class="btn btn-sm btn-danger">
-                                Passiv
-                            </span>
-                            @elseif($quiz->status == 'draft')
-                                <span class="btn btn-sm btn-warning">
-                                Qaralama
-                            </span>
-                            @endif
+                            @switch($quiz->status)
+                                @case('publish')
+                                @if(!$quiz->finished_at)
+                                    <span class="badge bg-success">Aktiv</span>
+                                @elseif($quiz->finished_at > now())
+                                    <span class="badge badge-success">Aktiv</span>
+                                @else
+                                    <span class="badge bg-secondary">Tarixi Bitib</span>
+                                @endif
+                                @break
+                                @case('passive')
+                                <span class="badge bg-danger">Passiv</span>
+                                @break
+                                @case('draft')
+                                <span class="badge bg-warning">Qaralama</span>
+                                @break
+                            @endswitch
                         </td>
                         <td><span
                                 title="{{$quiz->finished_at}}">{{$quiz->finished_at ? $quiz->finished_at->diffForHumans() : '-'}}</span>
                         </td>
                         <td>
+                            <a href="{{route('quizzes.details', $quiz->id)}}" class="btn btn-secondary">
+                                <i class="fa fa-info-circle"></i>
+                            </a>
                             <a href="{{route('questions.index', $quiz->id)}}" class="btn btn-warning"><i
                                     class="fa fa-question"></i></a>
                             <a href="{{route('quizzes.edit', $quiz->id)}}" class="btn btn-primary"><i

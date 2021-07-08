@@ -56,11 +56,12 @@ class QuizController extends Controller
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
     public function show($id)
     {
-        //
+        $quiz = Quiz::with( 'topTen.user', 'results.user')->withCount('questions')->find($id) ?? abort(404, 'Test tapılmadı!');
+        return view('admin.quiz.show', compact('quiz'));
     }
 
     /**
